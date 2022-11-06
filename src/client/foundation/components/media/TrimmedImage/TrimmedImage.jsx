@@ -14,13 +14,5 @@ export const TrimmedImage = ({ height, src, width }) => {
     .replace(".jpg", ".webp")
     .replace("races", `races/${w}`)
     .replace("players", `players/${w}`);
-  return (
-    <img
-      width={width}
-      height={height}
-      src={url}
-      loading="lazy"
-      style={{ objectFit: "cover" }}
-    />
-  );
+  return <img width={width} height={height} src={url} loading="lazy" />;
 };
