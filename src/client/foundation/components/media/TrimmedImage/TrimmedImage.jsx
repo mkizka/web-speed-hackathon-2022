@@ -9,7 +9,11 @@ import React from "react";
 
 /** @type {React.VFC<Props>} */
 export const TrimmedImage = ({ height, src, width }) => {
-  const url = src.endsWith(".jpg") ? src.replace(".jpg", ".webp") : src;
+  const w = width.toString();
+  const url = src
+    .replace(".jpg", ".webp")
+    .replace("races", `races/${w}`)
+    .replace("players", `players/${w}`);
   return (
     <img
       width={width}
