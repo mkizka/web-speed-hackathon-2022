@@ -14,5 +14,6 @@ const Image = styled.img`
 
 /** @type {React.VFC<Props>} */
 export const HeroImage = ({ url }) => {
+  // TODO: ウィンドウサイズに応じて縦横サイズ固定
   return <Image alt="" src={url} />;
 };
