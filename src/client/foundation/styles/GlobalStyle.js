@@ -5,7 +5,15 @@ import { Color } from "./variables";
 
 export const GlobalStyle = createGlobalStyle`
  ${resetCss}
-
+  .svg-inline--fa.fa-w-16 {
+    width: 1em;
+  }
+  .svg-inline--fa.fa-w-18 {
+    width: 1.125em;
+  }
+  .svg-inline--fa.fa-w-14 {
+    width: 0.875em;
+  }
   body {
     color: ${Color.mono[900]};
     background: ${Color.mono[100]};

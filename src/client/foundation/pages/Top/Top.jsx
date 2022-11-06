@@ -1,5 +1,4 @@
-import _ from "lodash";
-import moment from "moment-timezone";
+import moment from "dayjs";
 import React, { useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";

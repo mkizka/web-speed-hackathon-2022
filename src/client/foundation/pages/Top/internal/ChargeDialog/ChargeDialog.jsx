@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import React, { forwardRef, useCallback, useState } from "react";
+//import { motion } from "framer-motion";
+import React, { forwardRef, useCallback, useEffect, useState } from "react";
 import zenginCode from "zengin-code";
 
 import { Dialog } from "../../../../components/layouts/Dialog";
@@ -11,6 +11,24 @@ import { Space } from "../../../../styles/variables";
 
 const CANCEL = "cancel";
 const CHARGE = "charge";
+
+function MotionDiv(props) {
+  const [started, setStarted] = useState(false);
+  useEffect(() => {
+    setStarted(true);
+  }, []);
+  const style = started ? props.animate : props.initial;
+  return (
+    <div
+      style={{
+        transition: "all 1s",
+        ...style,
+      }}
+    >
+      {props.children}
+    </div>
+  );
+}
 
 /**
  * @typedef Props
@@ -98,9 +116,9 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
             </datalist>
 
             {bank != null && (
-              <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
+              <MotionDiv animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
                 銀行名: {bank.name}銀行
-              </motion.div>
+              </MotionDiv>
             )}
 
             <label>
@@ -122,9 +140,9 @@ export const ChargeDialog = forwardRef(({ onComplete }, ref) => {
             </datalist>
 
             {branch && (
-              <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
+              <MotionDiv animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
                 支店名: {branch.name}
-              </motion.div>
+              </MotionDiv>
             )}
 
             <label>
