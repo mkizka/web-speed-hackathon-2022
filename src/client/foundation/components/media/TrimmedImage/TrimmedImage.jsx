@@ -14,6 +14,5 @@ export const TrimmedImage = ({ height, src, width }) => {
     .replace(".jpg", ".webp")
     .replace("races", `races/${w}`)
     .replace("players", `players/${w}`);
-  // TODO: ウィンドウサイズに応じて縦横サイズ固定
-  return <img src={url} loading="lazy" />;
+  return <img src={url} height={height} width={width} loading="lazy" />;
 };
