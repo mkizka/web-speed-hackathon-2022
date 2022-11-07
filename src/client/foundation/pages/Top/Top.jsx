@@ -1,7 +1,8 @@
 import moment from "dayjs";
-import React, { useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 import { Container } from "../../components/layouts/Container";
 import { Spacer } from "../../components/layouts/Spacer";
@@ -20,6 +21,7 @@ import { RecentRaceList } from "./internal/RecentRaceList";
 /** @type {React.VFC} */
 export const Top = () => {
   const { date = moment().format("YYYY-MM-DD") } = useParams();
+  const [zenginCode, setZenginCode] = useState([]);
 
   const ChargeButton = styled.button`
     background: ${Color.mono[700]};
@@ -46,6 +48,13 @@ export const Top = () => {
       return;
     }
 
+    if (zenginCode.length == 0) {
+      axios //
+        .get("/api/zengin", { responseType: "json" })
+        .then((res) => {
+          setZenginCode(res.data);
+        });
+    }
     chargeDialogRef.current.showModal();
   }, []);
 
@@ -95,7 +104,11 @@ export const Top = () => {
         )}
       </section>
 
-      <ChargeDialog ref={chargeDialogRef} onComplete={handleCompleteCharge} />
+      <ChargeDialog
+        ref={chargeDialogRef}
+        zenginCode={zenginCode}
+        onComplete={handleCompleteCharge}
+      />
     </Container>
   );
 };

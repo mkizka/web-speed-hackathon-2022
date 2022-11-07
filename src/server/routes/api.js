@@ -1,10 +1,23 @@
 import moment from "moment-timezone";
 import { Between, LessThanOrEqual, MoreThanOrEqual } from "typeorm";
+import zenginCode from "zengin-code";
 
-import { assets } from "../../client/foundation/utils/UrlUtils.js";
 import { BettingTicket, Race, User } from "../../model/index.js";
 import { createConnection } from "../typeorm/connection.js";
 import { initialize } from "../typeorm/initialize.js";
+
+const minimizeZenginCode = Object.entries(zenginCode).map(([code, bank]) => {
+  return {
+    code,
+    name: bank.name,
+    branches: Object.entries(bank.branches).map(([code, branch]) => {
+      return {
+        code,
+        name: branch.name,
+      };
+    }),
+  };
+});
 
 /**
  * @type {import('fastify').FastifyPluginCallback}
@@ -161,5 +174,10 @@ export const apiRoute = async (fastify) => {
   fastify.post("/initialize", async (_req, res) => {
     await initialize();
     res.status(204).send();
+  });
+
+  // TODO: gzipとかするべき？
+  fastify.get("/zengin", async (req, res) => {
+    res.send(minimizeZenginCode);
   });
 };
