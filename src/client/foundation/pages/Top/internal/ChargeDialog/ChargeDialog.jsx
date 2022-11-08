@@ -84,12 +84,12 @@ export const ChargeDialog = forwardRef(({ onComplete, zenginCode }, ref) => {
     [charge, bankCode, branchCode, accountNo, amount, onComplete, clearForm],
   );
 
-  const bankList = Object.entries(zenginCode).map(([code, { name }]) => ({
+  const bankList = zenginCode.map(({ code, name }) => ({
     code,
     name,
   }));
-  const bank = zenginCode[bankCode];
-  const branch = bank?.branches[branchCode];
+  const bank = zenginCode.find(({ code }) => bankCode == code);
+  const branch = bank?.branches.find(({ code }) => branchCode == code);
 
   return (
     <Dialog ref={ref} onClose={handleCloseDialog}>
