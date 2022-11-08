@@ -1,4 +1,5 @@
 import React from "react";
+import { useDocumentBodyWidth } from "../../../utils/useDocumentBodyWidth";
 
 /**
  * @typedef Props
@@ -9,10 +10,16 @@ import React from "react";
 
 /** @type {React.VFC<Props>} */
 export const TrimmedImage = ({ height, src, width }) => {
+  const documentBodyWidth = useDocumentBodyWidth();
   const w = width.toString();
   const url = src
     .replace(".jpg", ".webp")
     .replace("races", `races/${w}`)
     .replace("players", `players/${w}`);
-  return <img src={url} height={height} width={width} loading="lazy" />;
+  const imageWidth =
+    documentBodyWidth <= 400 + 32 ? documentBodyWidth - 32 : 400;
+  const imageHeight = (imageWidth * height) / width;
+  return (
+    <img src={url} height={imageHeight} width={imageWidth} loading="lazy" />
+  );
 };
