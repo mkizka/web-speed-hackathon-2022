@@ -2,7 +2,6 @@ import moment from "dayjs";
 import React, { useState, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 
 import { Container } from "../../components/layouts/Container";
 import { Spacer } from "../../components/layouts/Spacer";
@@ -49,10 +48,10 @@ export const Top = () => {
     }
 
     if (zenginCode.length == 0) {
-      axios //
-        .get("/api/zengin", { responseType: "json" })
-        .then((res) => {
-          setZenginCode(res.data);
+      fetch("/api/zengin")
+        .then((res) => res.json())
+        .then((data) => {
+          setZenginCode(data);
         });
     }
     chargeDialogRef.current.showModal();

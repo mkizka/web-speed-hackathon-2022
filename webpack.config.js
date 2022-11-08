@@ -51,7 +51,7 @@ module.exports = [
         patterns: [{ from: PUBLIC_ROOT, to: DIST_PUBLIC }],
       }),
       new CompressionPlugin(),
-      //new BundleAnalyzerPlugin(),
+      new BundleAnalyzerPlugin(),
     ],
     resolve: {
       extensions: [".js", ".jsx"],
