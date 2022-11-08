@@ -10,6 +10,15 @@ import { useDocumentBodyWidth } from "../../../utils/useDocumentBodyWidth";
 
 /** @type {React.VFC<Props>} */
 export const TrimmedImage = ({ height, src, width }) => {
+  const w = width.toString();
+  const url = src
+    .replace(".jpg", ".webp")
+    .replace("races", `races/${w}`)
+    .replace("players", `players/${w}`);
+  return <img src={url} height={height} width={width} loading="lazy" />;
+};
+
+export const TrimmedHeroImage = ({ height, src, width }) => {
   const documentBodyWidth = useDocumentBodyWidth();
   const w = width.toString();
   const url = src
@@ -17,7 +26,7 @@ export const TrimmedImage = ({ height, src, width }) => {
     .replace("races", `races/${w}`)
     .replace("players", `players/${w}`);
   const imageWidth =
-    documentBodyWidth <= 400 + 32 ? documentBodyWidth - 32 : 400;
+    documentBodyWidth <= width + 32 ? documentBodyWidth - 32 : width;
   const imageHeight = (imageWidth * height) / width;
   return (
     <img src={url} height={imageHeight} width={imageWidth} loading="lazy" />
